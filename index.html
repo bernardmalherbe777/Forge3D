@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forge3D | Creality Filament Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="landing-mode">
+  <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to light mode">
+    <span class="theme-icon" aria-hidden="true">D</span>
+    <span class="theme-label">Dark</span>
+  </button>
+
+  <audio id="backgroundMusic" src="Music/Futuristic%20Soundscapes.wav" loop preload="auto"></audio>
+
+  <button id="musicToggle" class="music-toggle" type="button" aria-label="Mute music">
+    <span class="music-icon" aria-hidden="true">M</span>
+    <span class="music-label">Music On</span>
+  </button>
+
+  <div id="storeTransition" class="store-transition" aria-hidden="true">
+    <div class="transition-logo">
+      <span class="brand-mark">F3D</span>
+      <strong>Forge3D</strong>
+    </div>
+  </div>
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Store navigation">
+      <a class="brand" href="#top" aria-label="Forge3D home">
+        <span class="brand-mark">F3D</span>
+        <span>
+          <strong>Forge3D</strong>
+          <small>Creality filament shop</small>
+        </span>
+      </a>
+
+      <nav class="nav-list" aria-label="Primary navigation">
+        <a id="backToCategories" href="#top">Categories</a>
+        <a href="#shop" class="active">Shop</a>
+        <a href="#add-product">Add item</a>
+        <a href="#cart">Cart</a>
+        <a href="#checkout">Shipping</a>
+      </nav>
+
+      <div class="assistant-card">
+        <span class="status-dot"></span>
+        <p>Need to tune your print?</p>
+        <strong>PLA for easy prints, PETG for strength, TPU for flex.</strong>
+      </div>
+    </aside>
+
+    <main id="top" class="content">
+      <section class="hero category-hero" aria-label="Forge3D category showcase">
+        <button id="categoryPrev" class="category-arrow category-arrow-left" type="button" aria-label="Previous category">&lsaquo;</button>
+
+        <div class="category-copy">
+          <p class="eyebrow">Forge3D category deck</p>
+          <h1 id="categoryTitle">3D Printers</h1>
+          <p id="categoryDescription" class="hero-text">Start with the machines that turn filament into finished ideas. Browse printers, upgrades, and print-ready essentials.</p>
+          <div class="hero-actions">
+            <a id="categoryCta" class="button primary" href="#shop">Explore category</a>
+            <a id="categoryAddCta" class="button secondary" href="#add-product">Add official listing</a>
+          </div>
+        </div>
+
+        <div class="category-stage" aria-live="polite">
+          <div class="orbital-ring ring-one"></div>
+          <div class="orbital-ring ring-two"></div>
+          <div id="categoryIcon" class="floating-icon printer-icon" aria-hidden="true">
+            <span class="printer-frame"></span>
+            <span class="printer-gantry"></span>
+            <span class="printer-bed"></span>
+            <span class="printer-head"></span>
+            <span class="printer-cube"></span>
+          </div>
+        </div>
+
+        <div id="categoryDots" class="category-dots" aria-label="Category position"></div>
+        <button id="categoryNext" class="category-arrow category-arrow-right" type="button" aria-label="Next category">&rsaquo;</button>
+      </section>
+
+      <section class="toolbar" aria-label="Product filters">
+        <label class="search-box">
+          <span>Search products</span>
+          <input id="searchInput" type="search" placeholder="Search color, material, or name">
+        </label>
+        <label>
+          <span>Material</span>
+          <select id="materialFilter">
+            <option value="all">All materials</option>
+            <option value="PLA">PLA</option>
+            <option value="PETG">PETG</option>
+            <option value="ABS">ABS</option>
+            <option value="TPU">TPU</option>
+          </select>
+        </label>
+      </section>
+
+      <section id="shop" class="section-card">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Current stock</p>
+            <h2 id="shopTitle">Creality filament</h2>
+          </div>
+          <p id="productCount" class="muted"></p>
+        </div>
+        <div id="productGrid" class="product-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="add-product" class="section-card two-column">
+        <div>
+          <p class="eyebrow">Owner tools</p>
+          <h2>Add item</h2>
+          <p class="muted">Use this temporary form to manually add official Forge3D listings. Items are saved in this browser until a backend is connected.</p>
+        </div>
+        <form id="productForm" class="form-card">
+          <label>
+            Product name
+            <input name="name" required placeholder="Creality Hyper PLA">
+          </label>
+          <div class="form-row">
+            <label>
+              Category
+              <select name="category" required>
+                <option value="filament">3D Filament</option>
+                <option value="printers">3D Printers</option>
+                <option value="accessories">3D Printer Accessories</option>
+              </select>
+            </label>
+            <label>
+              Material / type
+              <select name="material" required>
+                <option value="PLA">PLA</option>
+                <option value="PETG">PETG</option>
+                <option value="ABS">ABS</option>
+                <option value="TPU">TPU</option>
+                <option value="CoreXY">CoreXY Printer</option>
+                <option value="Bed Slinger">Bed Slinger Printer</option>
+                <option value="Accessory">Accessory</option>
+              </select>
+            </label>
+            <label>
+              Color
+              <input name="color" required placeholder="Space Grey">
+            </label>
+          </div>
+          <div class="form-row">
+            <label>
+              Price (£)
+              <input name="price" required type="number" min="1" step="0.01" placeholder="18.99">
+            </label>
+            <label>
+              Stock
+              <input name="stock" required type="number" min="0" step="1" placeholder="12">
+            </label>
+          </div>
+          <label>
+            Short description
+            <textarea name="description" rows="3" placeholder="Smooth 1.75mm filament for everyday prints"></textarea>
+          </label>
+          <button class="button primary" type="submit">Add to shop</button>
+        </form>
+      </section>
+
+      <section id="cart" class="section-card">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Order builder</p>
+            <h2>Your cart</h2>
+          </div>
+          <button id="clearCartBtn" class="button ghost" type="button">Clear cart</button>
+        </div>
+        <div id="cartItems" class="cart-list"></div>
+        <div class="cart-summary">
+          <span>Total</span>
+          <strong id="cartTotal">£0.00</strong>
+        </div>
+      </section>
+
+      <section id="checkout" class="section-card two-column">
+        <div>
+          <p class="eyebrow">Checkout draft</p>
+          <h2>Shipping details</h2>
+          <p class="muted">Payment will be added later. For now this captures the information needed to prepare an order.</p>
+        </div>
+        <form id="shippingForm" class="form-card">
+          <div class="form-row">
+            <label>
+              Full name
+              <input name="fullName" required autocomplete="name">
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" required autocomplete="email">
+            </label>
+          </div>
+          <label>
+            Address line 1
+            <input name="address1" required autocomplete="address-line1">
+          </label>
+          <label>
+            Address line 2
+            <input name="address2" autocomplete="address-line2">
+          </label>
+          <div class="form-row">
+            <label>
+              City
+              <input name="city" required autocomplete="address-level2">
+            </label>
+            <label>
+              Postcode
+              <input name="postcode" required autocomplete="postal-code">
+            </label>
+          </div>
+          <label>
+            Delivery notes
+            <textarea name="notes" rows="3" placeholder="Safe place, preferred delivery times, etc."></textarea>
+          </label>
+          <button class="button primary" type="submit">Submit order request</button>
+          <p id="orderMessage" class="order-message" role="status"></p>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
