@@ -156,13 +156,9 @@ const categories = [
     description: "Start with the machines that turn filament into finished ideas. Browse printers, upgrades, and print-ready essentials.",
     cta: "Explore printers",
     href: "#shop",
-    iconClass: "printer-icon",
+    iconClass: "printer-image-icon",
     iconHtml: `
-      <span class="printer-frame"></span>
-      <span class="printer-gantry"></span>
-      <span class="printer-bed"></span>
-      <span class="printer-head"></span>
-      <span class="printer-cube"></span>
+      <img class="category-image" src="3D%20Printers/3D%20Printers%20%20Catogory%20Logo.png" alt="">
     `
   },
   {
@@ -171,12 +167,9 @@ const categories = [
     description: "Dial in your workshop with nozzles, tools, build plates, spares, and smart upgrades for cleaner prints.",
     cta: "View accessories",
     href: "#add-product",
-    iconClass: "accessory-icon",
+    iconClass: "category-image-icon accessory-image-icon",
     iconHtml: `
-      <span class="tool-disc"></span>
-      <span class="wrench-handle"></span>
-      <span class="wrench-head"></span>
-      <span class="nozzle"></span>
+      <img class="category-image" src="3D%20Printers/3D%20Printer%20Accessories%20Logo.png" alt="">
     `
   },
   {
@@ -185,11 +178,9 @@ const categories = [
     description: "Shop Creality PLA, PETG, ABS, TPU, and specialty colors for strong, smooth, reliable prints.",
     cta: "Shop filament",
     href: "#shop",
-    iconClass: "filament-icon",
+    iconClass: "category-image-icon filament-image-icon",
     iconHtml: `
-      <span class="spool-outer"></span>
-      <span class="spool-inner"></span>
-      <span class="filament-strand"></span>
+      <img class="category-image" src="3D%20Printers/3D%20Filament%20Logo.png" alt="">
     `
   }
 ];
