@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forge3D | Cart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="store-mode">
+  <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to light mode">
+    <span class="theme-icon" aria-hidden="true">D</span>
+    <span class="theme-label">Dark</span>
+  </button>
+
+  <audio id="backgroundMusic" src="Music/Futuristic%20Soundscapes.wav" loop preload="auto"></audio>
+
+  <button id="musicToggle" class="music-toggle" type="button" aria-label="Mute music">
+    <span class="music-icon" aria-hidden="true">M</span>
+    <span class="music-label">Music On</span>
+  </button>
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Store navigation">
+      <a class="brand" href="index.html" aria-label="Forge3D home">
+        <span class="brand-mark">F3D</span>
+        <span>
+          <strong>Forge3D</strong>
+          <small>Creality filament shop</small>
+        </span>
+      </a>
+
+      <nav class="nav-list" aria-label="Primary navigation">
+        <a href="index.html">Categories</a>
+        <a href="index.html#shop">Shop</a>
+        <a href="index.html#add-product">Add item</a>
+        <a href="cart.html" class="active">Cart</a>
+        <a href="payment.html">Payment</a>
+      </nav>
+
+      <div class="assistant-card">
+        <span class="status-dot"></span>
+        <p>Review your order.</p>
+        <strong>Adjust quantities before moving to payment.</strong>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section id="cart" class="section-card page-hero-card">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Order builder</p>
+            <h1>Your cart</h1>
+          </div>
+          <button id="clearCartBtn" class="button ghost" type="button">Clear cart</button>
+        </div>
+        <div id="cartItems" class="cart-list"></div>
+        <div class="cart-summary">
+          <span>Total</span>
+          <strong id="cartTotal">£0.00</strong>
+        </div>
+        <div class="page-actions">
+          <a class="button secondary" href="index.html#shop">Continue shopping</a>
+          <a class="button primary" href="payment.html">Go to payment</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

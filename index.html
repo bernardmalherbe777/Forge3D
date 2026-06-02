@@ -43,8 +43,8 @@
         <a id="backToCategories" href="#top">Categories</a>
         <a href="#shop" class="active">Shop</a>
         <a href="#add-product">Add item</a>
-        <a href="#cart">Cart</a>
-        <a href="#checkout">Shipping</a>
+        <a href="cart.html">Cart</a>
+        <a href="payment.html">Payment</a>
       </nav>
 
       <div class="assistant-card">
@@ -95,6 +95,17 @@
             <option value="TPU">TPU</option>
           </select>
         </label>
+      </section>
+
+      <section id="printerSubcategories" class="section-card printer-subcategories" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Choose your printer type</p>
+            <h2>3D Printer sections</h2>
+          </div>
+          <p id="printerSubcategoryLabel" class="muted">All printer sections</p>
+        </div>
+        <div id="printerSubcategoryGrid" class="subcategory-grid" aria-label="3D printer subsections"></div>
       </section>
 
       <section id="shop" class="section-card">
@@ -163,68 +174,10 @@
         </form>
       </section>
 
-      <section id="cart" class="section-card">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Order builder</p>
-            <h2>Your cart</h2>
-          </div>
-          <button id="clearCartBtn" class="button ghost" type="button">Clear cart</button>
-        </div>
-        <div id="cartItems" class="cart-list"></div>
-        <div class="cart-summary">
-          <span>Total</span>
-          <strong id="cartTotal">£0.00</strong>
-        </div>
-      </section>
-
-      <section id="checkout" class="section-card two-column">
-        <div>
-          <p class="eyebrow">Checkout draft</p>
-          <h2>Shipping details</h2>
-          <p class="muted">Payment will be added later. For now this captures the information needed to prepare an order.</p>
-        </div>
-        <form id="shippingForm" class="form-card">
-          <div class="form-row">
-            <label>
-              Full name
-              <input name="fullName" required autocomplete="name">
-            </label>
-            <label>
-              Email
-              <input name="email" type="email" required autocomplete="email">
-            </label>
-          </div>
-          <label>
-            Address line 1
-            <input name="address1" required autocomplete="address-line1">
-          </label>
-          <label>
-            Address line 2
-            <input name="address2" autocomplete="address-line2">
-          </label>
-          <div class="form-row">
-            <label>
-              City
-              <input name="city" required autocomplete="address-level2">
-            </label>
-            <label>
-              Postcode
-              <input name="postcode" required autocomplete="postal-code">
-            </label>
-          </div>
-          <label>
-            Delivery notes
-            <textarea name="notes" rows="3" placeholder="Safe place, preferred delivery times, etc."></textarea>
-          </label>
-          <button class="button primary" type="submit">Submit order request</button>
-          <p id="orderMessage" class="order-message" role="status"></p>
-        </form>
-      </section>
     </main>
   </div>
 
-  <a class="button primary floating-cart-button" href="#cart">View Cart</a>
+  <a class="button primary floating-cart-button" href="cart.html">View Cart</a>
 
   <script src="script.js"></script>
 </body>

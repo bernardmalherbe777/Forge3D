@@ -68,6 +68,7 @@ const demoProducts = [
   {
     id: "creality-k1c-printer",
     category: "printers",
+    subcategory: "closed",
     name: "Creality K1C 3D Printer",
     material: "CoreXY",
     color: "Carbon Black",
@@ -79,6 +80,7 @@ const demoProducts = [
   {
     id: "creality-ender-3-v3-ke",
     category: "printers",
+    subcategory: "open",
     name: "Creality Ender-3 V3 KE",
     material: "Bed Slinger",
     color: "Graphite",
@@ -88,8 +90,57 @@ const demoProducts = [
     swatch: "#334155"
   },
   {
+    id: "creality-k2-plus-printer",
+    category: "printers",
+    subcategory: "latest",
+    name: "Creality K2 Plus Combo",
+    material: "Latest Release",
+    color: "Obsidian Black",
+    price: 899.00,
+    stock: 3,
+    description: "Latest flagship CoreXY system for fast multi-material production.",
+    swatch: "#111827"
+  },
+  {
+    id: "creality-k1-max-printer",
+    category: "printers",
+    subcategory: "premium",
+    name: "Creality K1 Max",
+    material: "Premium Printer",
+    color: "Graphite Grey",
+    price: 699.00,
+    stock: 5,
+    description: "Premium enclosed printer with a larger chamber and high-speed motion.",
+    swatch: "#475569"
+  },
+  {
+    id: "creality-cr-m4-printer",
+    category: "printers",
+    subcategory: "xxl",
+    name: "Creality CR-M4",
+    material: "XXL Printer",
+    color: "Workshop Black",
+    price: 759.00,
+    stock: 2,
+    description: "Large-format printer for bigger prototypes, cosplay parts, and fixtures.",
+    swatch: "#1f2937"
+  },
+  {
+    id: "creality-halot-mage-resin",
+    category: "printers",
+    subcategory: "resin",
+    name: "Creality HALOT-MAGE",
+    material: "Resin Printer",
+    color: "UV Amber",
+    price: 289.00,
+    stock: 6,
+    description: "High-resolution resin printer for miniatures, dental models, and fine detail.",
+    swatch: "#f59e0b"
+  },
+  {
     id: "creality-build-plate-kit",
     category: "accessories",
+    subcategory: "upgrades",
     name: "Creality PEI Build Plate",
     material: "Accessory",
     color: "Textured Gold",
@@ -101,6 +152,7 @@ const demoProducts = [
   {
     id: "creality-nozzle-kit",
     category: "accessories",
+    subcategory: "nozzles",
     name: "Creality Nozzle Kit",
     material: "Accessory",
     color: "Brass",
@@ -108,6 +160,42 @@ const demoProducts = [
     stock: 28,
     description: "Replacement nozzle pack for keeping extrusion smooth and accurate.",
     swatch: "#f59e0b"
+  },
+  {
+    id: "creality-cfs-system",
+    category: "accessories",
+    subcategory: "cfs",
+    name: "Creality CFS System",
+    material: "CFS System",
+    color: "Carbon Black",
+    price: 259.00,
+    stock: 5,
+    description: "Multi-filament management system for cleaner colour and material changes.",
+    swatch: "#111827"
+  },
+  {
+    id: "creality-printer-enclosure",
+    category: "accessories",
+    subcategory: "enclosures",
+    name: "Creality Printer Enclosure",
+    material: "Printer Enclosure",
+    color: "Slate Black",
+    price: 84.99,
+    stock: 9,
+    description: "Temperature-stable enclosure for ABS, ASA, and workshop dust protection.",
+    swatch: "#334155"
+  },
+  {
+    id: "creality-space-pi-plus",
+    category: "accessories",
+    subcategory: "latest",
+    name: "Creality Space Pi Plus",
+    material: "Latest Release",
+    color: "Signal White",
+    price: 89.99,
+    stock: 7,
+    description: "Latest dual-spool filament dryer for stable, dry material feeding.",
+    swatch: "#f8fafc"
   }
 ];
 
@@ -122,12 +210,12 @@ const clearCartBtn = document.querySelector("#clearCartBtn");
 const shippingForm = document.querySelector("#shippingForm");
 const orderMessage = document.querySelector("#orderMessage");
 const themeToggle = document.querySelector("#themeToggle");
-const themeIcon = themeToggle.querySelector(".theme-icon");
-const themeLabel = themeToggle.querySelector(".theme-label");
+const themeIcon = themeToggle?.querySelector(".theme-icon");
+const themeLabel = themeToggle?.querySelector(".theme-label");
 const backgroundMusic = document.querySelector("#backgroundMusic");
 const musicToggle = document.querySelector("#musicToggle");
-const musicIcon = musicToggle.querySelector(".music-icon");
-const musicLabel = musicToggle.querySelector(".music-label");
+const musicIcon = musicToggle?.querySelector(".music-icon");
+const musicLabel = musicToggle?.querySelector(".music-label");
 const categoryHero = document.querySelector(".category-hero");
 const categoryTitle = document.querySelector("#categoryTitle");
 const categoryDescription = document.querySelector("#categoryDescription");
@@ -140,6 +228,9 @@ const categoryDots = document.querySelector("#categoryDots");
 const shopTitle = document.querySelector("#shopTitle");
 const backToCategories = document.querySelector("#backToCategories");
 const storeTransition = document.querySelector("#storeTransition");
+const printerSubcategoryPanel = document.querySelector("#printerSubcategories");
+const printerSubcategoryGrid = document.querySelector("#printerSubcategoryGrid");
+const printerSubcategoryLabel = document.querySelector("#printerSubcategoryLabel");
 
 const buttonSoundPaths = [
   "Sounds/Smooth%20Button%202.mp3",
@@ -185,11 +276,30 @@ const categories = [
   }
 ];
 
+const subcategoryGroups = {
+  printers: [
+    { key: "latest", title: "Latest Release", description: "Newest Creality printer launches and flagship bundles." },
+    { key: "open", title: "Open Printers", description: "Open-frame machines for fast access and everyday printing." },
+    { key: "closed", title: "Closed Printers", description: "Enclosed printers for stable temperatures and stronger materials." },
+    { key: "premium", title: "Premium Printers", description: "Higher-end printers for speed, automation, and larger workflows." },
+    { key: "xxl", title: "XXL Printers", description: "Large-format machines for bigger parts and production jobs." },
+    { key: "resin", title: "Resin Printers", description: "High-detail resin systems for models, miniatures, and precision parts." }
+  ],
+  accessories: [
+    { key: "latest", title: "Latest Releases", description: "Newest upgrades and workshop accessories from Creality." },
+    { key: "nozzles", title: "Nozzles", description: "Replacement and specialty nozzles for different materials." },
+    { key: "upgrades", title: "Upgrades", description: "Build plates, hardware, and tuning parts for better results." },
+    { key: "cfs", title: "CFS Systems", description: "Multi-material systems and filament management gear." },
+    { key: "enclosures", title: "Printer Enclosures", description: "Enclosures for temperature control, safety, and cleaner workspaces." }
+  ]
+};
+
 let products = loadProducts();
 let cart = loadCart();
 let activeCategory = 0;
 let categoryLocked = false;
 let activeStoreCategory = null;
+let activeStoreSubcategory = null;
 let transitionLocked = false;
 let musicMuted = localStorage.getItem("forge3d-music-muted") === "true";
 let musicStarted = false;
@@ -204,21 +314,22 @@ backgroundMusic.volume = 0.32;
 
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  themeIcon.textContent = theme === "dark" ? "D" : "L";
-  themeLabel.textContent = theme === "dark" ? "Dark" : "Light";
-  themeToggle.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} mode`);
+  if (themeIcon) themeIcon.textContent = theme === "dark" ? "D" : "L";
+  if (themeLabel) themeLabel.textContent = theme === "dark" ? "Dark" : "Light";
+  themeToggle?.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} mode`);
   localStorage.setItem("forge3d-theme", theme);
 }
 
 function updateMusicButton() {
+  if (!musicToggle) return;
   musicToggle.classList.toggle("muted", musicMuted);
-  musicIcon.textContent = musicMuted ? "X" : "M";
-  musicLabel.textContent = musicMuted ? "Music Off" : "Music On";
+  if (musicIcon) musicIcon.textContent = musicMuted ? "X" : "M";
+  if (musicLabel) musicLabel.textContent = musicMuted ? "Music Off" : "Music On";
   musicToggle.setAttribute("aria-label", musicMuted ? "Unmute music" : "Mute music");
 }
 
 function playBackgroundMusic() {
-  if (musicMuted) return;
+  if (musicMuted || !backgroundMusic) return;
 
   backgroundMusic.muted = false;
   backgroundMusic.play()
@@ -233,6 +344,11 @@ function playBackgroundMusic() {
 function setMusicMuted(isMuted) {
   musicMuted = isMuted;
   localStorage.setItem("forge3d-music-muted", String(musicMuted));
+
+  if (!backgroundMusic) {
+    updateMusicButton();
+    return;
+  }
 
   if (musicMuted) {
     backgroundMusic.pause();
@@ -255,13 +371,14 @@ function playSwipeSound() {
 }
 
 function renderCategoryDots() {
+  if (!categoryDots) return;
   categoryDots.innerHTML = categories.map((category, index) => `
     <button class="category-dot${index === activeCategory ? " active" : ""}" type="button" data-category="${index}" aria-label="Show ${category.title}"></button>
   `).join("");
 }
 
 function setCategory(index, direction = 1) {
-  if (categoryLocked || index === activeCategory) return;
+  if (!categoryHero || categoryLocked || index === activeCategory) return;
 
   categoryLocked = true;
   categoryHero.style.setProperty("--slide-out", direction > 0 ? "-110px" : "110px");
@@ -357,23 +474,53 @@ function swatchFromColor(color) {
 }
 
 function filteredProducts() {
-  const query = searchInput.value.trim().toLowerCase();
-  const material = materialFilter.value;
+  const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+  const material = materialFilter ? materialFilter.value : "all";
 
   return products.filter((product) => {
     const searchable = `${product.name} ${product.material} ${product.color} ${product.description}`.toLowerCase();
     const matchesSearch = !query || searchable.includes(query);
     const matchesMaterial = material === "all" || product.material === material;
     const matchesCategory = !activeStoreCategory || product.category === activeStoreCategory;
-    return matchesSearch && matchesMaterial && matchesCategory;
+    const matchesSubcategory = !activeStoreSubcategory || product.subcategory === activeStoreSubcategory;
+    return matchesSearch && matchesMaterial && matchesCategory && matchesSubcategory;
   });
 }
 
+function renderSubcategories() {
+  if (!printerSubcategoryPanel || !printerSubcategoryGrid) return;
+
+  const subcategories = subcategoryGroups[activeStoreCategory] || [];
+  printerSubcategoryPanel.hidden = !subcategories.length;
+
+  if (!subcategories.length) {
+    activeStoreSubcategory = null;
+    return;
+  }
+
+  const activeSubcategory = subcategories.find((item) => item.key === activeStoreSubcategory);
+  if (printerSubcategoryLabel) {
+    printerSubcategoryLabel.textContent = activeSubcategory ? activeSubcategory.title : "All sections";
+  }
+
+  printerSubcategoryGrid.innerHTML = subcategories.map((subcategory) => `
+    <button class="subcategory-card${subcategory.key === activeStoreSubcategory ? " active" : ""}" type="button" data-subcategory="${subcategory.key}">
+      <span class="eyebrow">${categoryLabel(activeStoreCategory)}</span>
+      <strong>${subcategory.title}</strong>
+      <span>${subcategory.description}</span>
+    </button>
+  `).join("");
+}
+
 function renderProducts() {
+  if (!productGrid || !productCount || !shopTitle) return;
+
   const visibleProducts = filteredProducts();
   const activeCategoryData = categories.find((category) => category.category === activeStoreCategory);
-  shopTitle.textContent = activeCategoryData ? activeCategoryData.title : "Forge3D stock";
+  const activeSubcategoryData = (subcategoryGroups[activeStoreCategory] || []).find((subcategory) => subcategory.key === activeStoreSubcategory);
+  shopTitle.textContent = activeSubcategoryData ? activeSubcategoryData.title : activeCategoryData ? activeCategoryData.title : "Forge3D stock";
   productCount.textContent = `${visibleProducts.length} item${visibleProducts.length === 1 ? "" : "s"} shown`;
+  renderSubcategories();
 
   if (!visibleProducts.length) {
     productGrid.innerHTML = `<div class="empty-state">No products match your filters.</div>`;
@@ -410,7 +557,7 @@ function categoryLabel(categoryValue) {
 }
 
 function enterStore(target = "shop") {
-  if (transitionLocked) return;
+  if (transitionLocked || !storeTransition) return;
 
   const category = categories[activeCategory];
   transitionLocked = true;
@@ -419,13 +566,14 @@ function enterStore(target = "shop") {
 
   window.setTimeout(() => {
     activeStoreCategory = category.category;
+    activeStoreSubcategory = null;
     document.body.classList.remove("landing-mode");
     document.body.classList.add("store-mode");
     document.body.classList.remove("transitioning");
-    searchInput.value = "";
-    materialFilter.value = "all";
+    if (searchInput) searchInput.value = "";
+    if (materialFilter) materialFilter.value = "all";
     renderProducts();
-    document.querySelector(`#${target}`).scrollIntoView({ behavior: "auto", block: "start" });
+    document.querySelector(`#${target}`)?.scrollIntoView({ behavior: "auto", block: "start" });
 
     window.setTimeout(() => {
       storeTransition.classList.remove("active");
@@ -438,17 +586,29 @@ function enterLanding() {
   document.body.classList.remove("store-mode");
   document.body.classList.add("landing-mode");
   activeStoreCategory = null;
+  activeStoreSubcategory = null;
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+function openStoreDirect(target = "shop") {
+  document.body.classList.remove("landing-mode");
+  document.body.classList.add("store-mode");
+  activeStoreCategory = null;
+  activeStoreSubcategory = null;
+  renderProducts();
+  document.querySelector(`#${target}`)?.scrollIntoView({ behavior: "auto", block: "start" });
+}
+
 function renderCart() {
+  if (!cartItems && !cartTotal) return;
+
   if (!cart.length) {
-    cartItems.innerHTML = `<div class="empty-state">Your cart is empty. Add an item from the shop above.</div>`;
-    cartTotal.textContent = formatPrice(0);
+    if (cartItems) cartItems.innerHTML = `<div class="empty-state">Your cart is empty. Add an item from the shop above.</div>`;
+    if (cartTotal) cartTotal.textContent = formatPrice(0);
     return;
   }
 
-  cartItems.innerHTML = cart.map((item) => `
+  if (cartItems) cartItems.innerHTML = cart.map((item) => `
     <article class="cart-item">
       <div>
         <h3>${item.name}</h3>
@@ -466,7 +626,7 @@ function renderCart() {
   `).join("");
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  cartTotal.textContent = formatPrice(total);
+  if (cartTotal) cartTotal.textContent = formatPrice(total);
 }
 
 function addToCart(productId) {
@@ -482,7 +642,6 @@ function addToCart(productId) {
 
   saveCart();
   renderCart();
-  document.querySelector("#cart").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function updateQuantity(productId, change) {
@@ -552,12 +711,21 @@ function submitOrder(event) {
   shippingForm.reset();
 }
 
-productGrid.addEventListener("click", (event) => {
+productGrid?.addEventListener("click", (event) => {
   const addButton = event.target.closest("[data-add]");
   if (addButton) addToCart(addButton.dataset.add);
 });
 
-cartItems.addEventListener("click", (event) => {
+printerSubcategoryGrid?.addEventListener("click", (event) => {
+  const card = event.target.closest("[data-subcategory]");
+  if (!card) return;
+
+  activeStoreSubcategory = card.dataset.subcategory;
+  renderProducts();
+  document.querySelector("#shop")?.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+cartItems?.addEventListener("click", (event) => {
   const increaseButton = event.target.closest("[data-increase]");
   const decreaseButton = event.target.closest("[data-decrease]");
   const removeButton = event.target.closest("[data-remove]");
@@ -571,17 +739,17 @@ cartItems.addEventListener("click", (event) => {
   }
 });
 
-clearCartBtn.addEventListener("click", () => {
+clearCartBtn?.addEventListener("click", () => {
   cart = [];
   saveCart();
   renderCart();
 });
 
-productForm.addEventListener("submit", addProduct);
-shippingForm.addEventListener("submit", submitOrder);
-searchInput.addEventListener("input", renderProducts);
-materialFilter.addEventListener("change", renderProducts);
-themeToggle.addEventListener("click", () => {
+productForm?.addEventListener("submit", addProduct);
+shippingForm?.addEventListener("submit", submitOrder);
+searchInput?.addEventListener("input", renderProducts);
+materialFilter?.addEventListener("change", renderProducts);
+themeToggle?.addEventListener("click", () => {
   const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
   applyTheme(nextTheme);
 });
@@ -599,10 +767,10 @@ document.addEventListener("click", (event) => {
 document.addEventListener("pointerdown", () => {
   if (!musicStarted) playBackgroundMusic();
 }, { once: true });
-musicToggle.addEventListener("click", () => setMusicMuted(!musicMuted));
-categoryPrev.addEventListener("click", () => moveCategory(-1));
-categoryNext.addEventListener("click", () => moveCategory(1));
-categoryDots.addEventListener("click", (event) => {
+musicToggle?.addEventListener("click", () => setMusicMuted(!musicMuted));
+categoryPrev?.addEventListener("click", () => moveCategory(-1));
+categoryNext?.addEventListener("click", () => moveCategory(1));
+categoryDots?.addEventListener("click", (event) => {
   const dot = event.target.closest("[data-category]");
   if (!dot) return;
 
@@ -610,16 +778,16 @@ categoryDots.addEventListener("click", (event) => {
   const direction = nextIndex > activeCategory ? 1 : -1;
   setCategory(nextIndex, direction);
 });
-categoryCta.addEventListener("click", (event) => {
+categoryCta?.addEventListener("click", (event) => {
   event.preventDefault();
   enterStore("shop");
 });
-categoryAddCta.addEventListener("click", (event) => {
+categoryAddCta?.addEventListener("click", (event) => {
   event.preventDefault();
   enterStore("add-product");
 });
-categoryIcon.addEventListener("click", () => enterStore("shop"));
-backToCategories.addEventListener("click", (event) => {
+categoryIcon?.addEventListener("click", () => enterStore("shop"));
+backToCategories?.addEventListener("click", (event) => {
   event.preventDefault();
   enterLanding();
 });
@@ -630,3 +798,7 @@ playBackgroundMusic();
 renderCategoryDots();
 renderProducts();
 renderCart();
+
+if (categoryHero && ["#shop", "#add-product"].includes(window.location.hash)) {
+  openStoreDirect(window.location.hash.slice(1));
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forge3D | Payment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="store-mode">
+  <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to light mode">
+    <span class="theme-icon" aria-hidden="true">D</span>
+    <span class="theme-label">Dark</span>
+  </button>
+
+  <audio id="backgroundMusic" src="Music/Futuristic%20Soundscapes.wav" loop preload="auto"></audio>
+
+  <button id="musicToggle" class="music-toggle" type="button" aria-label="Mute music">
+    <span class="music-icon" aria-hidden="true">M</span>
+    <span class="music-label">Music On</span>
+  </button>
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Store navigation">
+      <a class="brand" href="index.html" aria-label="Forge3D home">
+        <span class="brand-mark">F3D</span>
+        <span>
+          <strong>Forge3D</strong>
+          <small>Creality filament shop</small>
+        </span>
+      </a>
+
+      <nav class="nav-list" aria-label="Primary navigation">
+        <a href="index.html">Categories</a>
+        <a href="index.html#shop">Shop</a>
+        <a href="index.html#add-product">Add item</a>
+        <a href="cart.html">Cart</a>
+        <a href="payment.html" class="active">Payment</a>
+      </nav>
+
+      <div class="assistant-card">
+        <span class="status-dot"></span>
+        <p>Checkout draft.</p>
+        <strong>Payment can be connected when the gateway is ready.</strong>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section id="checkout" class="section-card two-column page-hero-card">
+        <div>
+          <p class="eyebrow">Payment page</p>
+          <h1>Shipping and payment</h1>
+          <p class="muted">Payment will be added later. For now this captures the information needed to prepare an order.</p>
+          <div class="checkout-total-card">
+            <span>Cart total</span>
+            <strong id="cartTotal">£0.00</strong>
+          </div>
+        </div>
+        <form id="shippingForm" class="form-card">
+          <div class="form-row">
+            <label>
+              Full name
+              <input name="fullName" required autocomplete="name">
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" required autocomplete="email">
+            </label>
+          </div>
+          <label>
+            Address line 1
+            <input name="address1" required autocomplete="address-line1">
+          </label>
+          <label>
+            Address line 2
+            <input name="address2" autocomplete="address-line2">
+          </label>
+          <div class="form-row">
+            <label>
+              City
+              <input name="city" required autocomplete="address-level2">
+            </label>
+            <label>
+              Postcode
+              <input name="postcode" required autocomplete="postal-code">
+            </label>
+          </div>
+          <label>
+            Delivery notes
+            <textarea name="notes" rows="3" placeholder="Safe place, preferred delivery times, etc."></textarea>
+          </label>
+          <button class="button primary" type="submit">Submit order request</button>
+          <p id="orderMessage" class="order-message" role="status"></p>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
