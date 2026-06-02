@@ -2,6 +2,7 @@ const demoProducts = [
   {
     id: "creality-hyper-pla-black",
     category: "filament",
+    subcategory: "latest",
     name: "Creality Hyper PLA",
     material: "PLA",
     color: "Matte Black",
@@ -13,6 +14,7 @@ const demoProducts = [
   {
     id: "creality-ender-pla-white",
     category: "filament",
+    subcategory: "pla",
     name: "Creality Ender PLA",
     material: "PLA",
     color: "Classic White",
@@ -24,6 +26,7 @@ const demoProducts = [
   {
     id: "creality-petg-blue",
     category: "filament",
+    subcategory: "petg",
     name: "Creality CR-PETG",
     material: "PETG",
     color: "Ocean Blue",
@@ -35,6 +38,7 @@ const demoProducts = [
   {
     id: "creality-abs-grey",
     category: "filament",
+    subcategory: "abs-asa",
     name: "Creality ABS",
     material: "ABS",
     color: "Machine Grey",
@@ -46,6 +50,7 @@ const demoProducts = [
   {
     id: "creality-tpu-red",
     category: "filament",
+    subcategory: "tpu",
     name: "Creality TPU",
     material: "TPU",
     color: "Forge Red",
@@ -57,6 +62,7 @@ const demoProducts = [
   {
     id: "creality-silk-pla-gold",
     category: "filament",
+    subcategory: "specialty",
     name: "Creality Silk PLA",
     material: "PLA",
     color: "Polished Gold",
@@ -64,6 +70,30 @@ const demoProducts = [
     stock: 12,
     description: "Glossy silk finish for display models, gifts, and decorative prints.",
     swatch: "#d99c22"
+  },
+  {
+    id: "creality-pa-cf-black",
+    category: "filament",
+    subcategory: "composite",
+    name: "Creality PA-CF",
+    material: "Composite",
+    color: "Carbon Black",
+    price: 48.99,
+    stock: 5,
+    description: "Carbon-fibre-reinforced nylon for stiff, strong functional components.",
+    swatch: "#0f172a"
+  },
+  {
+    id: "creality-hyper-abs-engineering",
+    category: "filament",
+    subcategory: "engineering",
+    name: "Creality Hyper ABS",
+    material: "Engineering",
+    color: "Industrial Grey",
+    price: 31.99,
+    stock: 8,
+    description: "Engineering-grade filament for tougher parts with improved thermal resistance.",
+    swatch: "#64748b"
   },
   {
     id: "creality-k1c-printer",
@@ -291,6 +321,16 @@ const subcategoryGroups = {
     { key: "upgrades", title: "Upgrades", description: "Build plates, hardware, and tuning parts for better results." },
     { key: "cfs", title: "CFS Systems", description: "Multi-material systems and filament management gear." },
     { key: "enclosures", title: "Printer Enclosures", description: "Enclosures for temperature control, safety, and cleaner workspaces." }
+  ],
+  filament: [
+    { key: "latest", title: "Latest Releases", description: "Newest Creality filament colours, blends, and high-speed materials." },
+    { key: "pla", title: "PLA", description: "Easy-print everyday filament for prototypes, models, and clean parts." },
+    { key: "petg", title: "PETG", description: "Durable filament for functional parts with extra toughness and low warp." },
+    { key: "abs-asa", title: "ABS & ASA", description: "Heat-resistant materials for stronger workshop and outdoor-use parts." },
+    { key: "tpu", title: "TPU", description: "Flexible filament for grips, bumpers, cases, and soft components." },
+    { key: "engineering", title: "Engineering Materials", description: "Performance materials for stronger, more technical prints." },
+    { key: "composite", title: "Composite", description: "Filled filaments for stiffness, texture, and specialist finishes." },
+    { key: "specialty", title: "Specialty Filaments", description: "Silk, matte, decorative, and effect filaments for standout prints." }
   ]
 };
 
