@@ -24,6 +24,19 @@ const demoProducts = [
     swatch: "#f8fafc"
   },
   {
+    id: "creality-pla-glow-green",
+    category: "filament",
+    subcategory: "pla",
+    name: "Creality PLA Glow",
+    material: "PLA",
+    color: "Glow Green",
+    price: 24.99,
+    stock: 9,
+    popularity: 3,
+    description: "Glow-in-the-dark PLA for signs, props, and display models.",
+    swatch: "#a3e635"
+  },
+  {
     id: "creality-petg-blue",
     category: "filament",
     subcategory: "petg",
@@ -34,6 +47,32 @@ const demoProducts = [
     stock: 10,
     description: "Durable PETG for functional parts that need extra toughness.",
     swatch: "#2563eb"
+  },
+  {
+    id: "creality-petg-black",
+    category: "filament",
+    subcategory: "petg",
+    name: "Creality CR-PETG",
+    material: "PETG",
+    color: "Top Seller Black",
+    price: 21.99,
+    stock: 15,
+    popularity: 1,
+    description: "Popular black PETG for strong brackets, fixtures, and practical parts.",
+    swatch: "#111827"
+  },
+  {
+    id: "creality-petg-white",
+    category: "filament",
+    subcategory: "petg",
+    name: "Creality CR-PETG",
+    material: "PETG",
+    color: "Top Seller White",
+    price: 21.99,
+    stock: 12,
+    popularity: 2,
+    description: "Clean white PETG for visible functional parts and workshop builds.",
+    swatch: "#f8fafc"
   },
   {
     id: "creality-abs-grey",
@@ -58,6 +97,19 @@ const demoProducts = [
     stock: 7,
     description: "Flexible filament for grips, bumpers, cases, and soft components.",
     swatch: "#dc2626"
+  },
+  {
+    id: "creality-tpu-black",
+    category: "filament",
+    subcategory: "tpu",
+    name: "Creality TPU",
+    material: "TPU",
+    color: "Top Seller Black",
+    price: 25.99,
+    stock: 11,
+    popularity: 1,
+    description: "Best-selling flexible black TPU for grips, feet, cases, and bumpers.",
+    swatch: "#111827"
   },
   {
     id: "creality-silk-pla-gold",
@@ -261,6 +313,10 @@ const storeTransition = document.querySelector("#storeTransition");
 const printerSubcategoryPanel = document.querySelector("#printerSubcategories");
 const printerSubcategoryGrid = document.querySelector("#printerSubcategoryGrid");
 const printerSubcategoryLabel = document.querySelector("#printerSubcategoryLabel");
+const subcategoryDeckTitle = document.querySelector("#subcategoryDeckTitle");
+const subcategoryPrev = document.querySelector("#subcategoryPrev");
+const subcategoryNext = document.querySelector("#subcategoryNext");
+const selectSubcategory = document.querySelector("#selectSubcategory");
 
 const buttonSoundPaths = [
   "Sounds/Smooth%20Button%202.mp3",
@@ -308,29 +364,29 @@ const categories = [
 
 const subcategoryGroups = {
   printers: [
-    { key: "latest", title: "Latest Release", description: "Newest Creality printer launches and flagship bundles." },
-    { key: "open", title: "Open Printers", description: "Open-frame machines for fast access and everyday printing." },
-    { key: "closed", title: "Closed Printers", description: "Enclosed printers for stable temperatures and stronger materials." },
-    { key: "premium", title: "Premium Printers", description: "Higher-end printers for speed, automation, and larger workflows." },
-    { key: "xxl", title: "XXL Printers", description: "Large-format machines for bigger parts and production jobs." },
-    { key: "resin", title: "Resin Printers", description: "High-detail resin systems for models, miniatures, and precision parts." }
+    { key: "latest", title: "Latest Release", icon: "printer latest", description: "Newest Creality printer launches and flagship bundles." },
+    { key: "open", title: "Open Printers", icon: "printer open", description: "Open-frame machines for fast access and everyday printing." },
+    { key: "closed", title: "Closed Printers", icon: "printer closed", description: "Enclosed printers for stable temperatures and stronger materials." },
+    { key: "premium", title: "Premium Printers", icon: "printer premium", description: "Higher-end printers for speed, automation, and larger workflows." },
+    { key: "xxl", title: "XXL Printers", icon: "printer xxl", description: "Large-format machines for bigger parts and production jobs." },
+    { key: "resin", title: "Resin Printers", icon: "printer resin", description: "High-detail resin systems for models, miniatures, and precision parts." }
   ],
   accessories: [
-    { key: "latest", title: "Latest Releases", description: "Newest upgrades and workshop accessories from Creality." },
-    { key: "nozzles", title: "Nozzles", description: "Replacement and specialty nozzles for different materials." },
-    { key: "upgrades", title: "Upgrades", description: "Build plates, hardware, and tuning parts for better results." },
-    { key: "cfs", title: "CFS Systems", description: "Multi-material systems and filament management gear." },
-    { key: "enclosures", title: "Printer Enclosures", description: "Enclosures for temperature control, safety, and cleaner workspaces." }
+    { key: "latest", title: "Latest Releases", icon: "accessory latest", description: "Newest upgrades and workshop accessories from Creality." },
+    { key: "nozzles", title: "Nozzles", icon: "accessory nozzle", description: "Replacement and specialty nozzles for different materials." },
+    { key: "upgrades", title: "Upgrades", icon: "accessory upgrade", description: "Build plates, hardware, and tuning parts for better results." },
+    { key: "cfs", title: "CFS Systems", icon: "accessory cfs", description: "Multi-material systems and filament management gear." },
+    { key: "enclosures", title: "Printer Enclosures", icon: "accessory enclosure", description: "Enclosures for temperature control, safety, and cleaner workspaces." }
   ],
   filament: [
-    { key: "latest", title: "Latest Releases", description: "Newest Creality filament colours, blends, and high-speed materials." },
-    { key: "pla", title: "PLA", description: "Easy-print everyday filament for prototypes, models, and clean parts." },
-    { key: "petg", title: "PETG", description: "Durable filament for functional parts with extra toughness and low warp." },
-    { key: "abs-asa", title: "ABS & ASA", description: "Heat-resistant materials for stronger workshop and outdoor-use parts." },
-    { key: "tpu", title: "TPU", description: "Flexible filament for grips, bumpers, cases, and soft components." },
-    { key: "engineering", title: "Engineering Materials", description: "Performance materials for stronger, more technical prints." },
-    { key: "composite", title: "Composite", description: "Filled filaments for stiffness, texture, and specialist finishes." },
-    { key: "specialty", title: "Specialty Filaments", description: "Silk, matte, decorative, and effect filaments for standout prints." }
+    { key: "latest", title: "Latest Releases", icon: "filament latest", description: "Newest Creality filament colours, blends, and high-speed materials." },
+    { key: "pla", title: "PLA", icon: "filament pla", description: "Easy-print everyday filament for prototypes, models, and clean parts." },
+    { key: "petg", title: "PETG", icon: "filament petg", description: "Durable filament for functional parts with extra toughness and low warp." },
+    { key: "abs-asa", title: "ABS & ASA", icon: "filament abs", description: "Heat-resistant materials for stronger workshop and outdoor-use parts." },
+    { key: "tpu", title: "TPU", icon: "filament tpu", description: "Flexible filament for grips, bumpers, cases, and soft components." },
+    { key: "engineering", title: "Engineering Materials", icon: "filament engineering", description: "Performance materials for stronger, more technical prints." },
+    { key: "composite", title: "Composite", icon: "filament composite", description: "Filled filaments for stiffness, texture, and specialist finishes." },
+    { key: "specialty", title: "Specialty Filaments", icon: "filament specialty", description: "Silk, matte, decorative, and effect filaments for standout prints." }
   ]
 };
 
@@ -340,6 +396,7 @@ let activeCategory = 0;
 let categoryLocked = false;
 let activeStoreCategory = null;
 let activeStoreSubcategory = null;
+let activeSubcategoryIndex = 0;
 let transitionLocked = false;
 let musicMuted = localStorage.getItem("forge3d-music-muted") === "true";
 let musicStarted = false;
@@ -527,7 +584,53 @@ function filteredProducts() {
   });
 }
 
-function renderSubcategories() {
+function subcategoryIconHtml(subcategory) {
+  const [type, variant] = subcategory.icon.split(" ");
+
+  if (type === "filament") {
+    return `
+      <div class="subsection-logo filament-subsection-logo ${variant}">
+        <span class="roll-outer"></span>
+        <span class="roll-inner"></span>
+        <span class="roll-label">${subcategory.title.replace(" Filaments", "")}</span>
+      </div>
+    `;
+  }
+
+  if (type === "accessory") {
+    return `
+      <div class="subsection-logo accessory-subsection-logo ${variant}">
+        <span class="accessory-disc"></span>
+        <span class="accessory-stem"></span>
+        <span class="accessory-label">${subcategory.title}</span>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="subsection-logo printer-subsection-logo ${variant}">
+      <span class="printer-shell"></span>
+      <span class="printer-window"></span>
+      <span class="printer-model"></span>
+      <span class="printer-label">${subcategory.title}</span>
+    </div>
+  `;
+}
+
+function setSubcategory(index, direction = 1) {
+  const subcategories = subcategoryGroups[activeStoreCategory] || [];
+  if (!subcategories.length) return;
+
+  activeSubcategoryIndex = (index + subcategories.length) % subcategories.length;
+  activeStoreSubcategory = null;
+  renderSubcategories(direction);
+}
+
+function moveSubcategory(direction) {
+  setSubcategory(activeSubcategoryIndex + direction, direction);
+}
+
+function renderSubcategories(direction = 1) {
   if (!printerSubcategoryPanel || !printerSubcategoryGrid) return;
 
   const subcategories = subcategoryGroups[activeStoreCategory] || [];
@@ -538,29 +641,42 @@ function renderSubcategories() {
     return;
   }
 
-  const activeSubcategory = subcategories.find((item) => item.key === activeStoreSubcategory);
+  const activeSubcategory = subcategories[activeSubcategoryIndex];
   if (printerSubcategoryLabel) {
-    printerSubcategoryLabel.textContent = activeSubcategory ? activeSubcategory.title : "All sections";
+    printerSubcategoryLabel.textContent = `${activeSubcategoryIndex + 1} of ${subcategories.length}`;
   }
+  if (subcategoryDeckTitle) subcategoryDeckTitle.textContent = `${categoryLabel(activeStoreCategory)} sections`;
+  if (selectSubcategory) selectSubcategory.textContent = `View ${activeSubcategory.title}`;
 
-  printerSubcategoryGrid.innerHTML = subcategories.map((subcategory) => `
-    <button class="subcategory-card${subcategory.key === activeStoreSubcategory ? " active" : ""}" type="button" data-subcategory="${subcategory.key}">
-      <span class="eyebrow">${categoryLabel(activeStoreCategory)}</span>
-      <strong>${subcategory.title}</strong>
-      <span>${subcategory.description}</span>
-    </button>
-  `).join("");
+  printerSubcategoryGrid.style.setProperty("--slide-in", direction > 0 ? "120px" : "-120px");
+  printerSubcategoryGrid.innerHTML = `
+    <div class="subcategory-copy">
+      <p class="eyebrow">${categoryLabel(activeStoreCategory)}</p>
+      <h3>${activeSubcategory.title}</h3>
+      <p class="muted">${activeSubcategory.description}</p>
+    </div>
+    <div class="subcategory-floating-icon" aria-hidden="true">
+      ${subcategoryIconHtml(activeSubcategory)}
+    </div>
+  `;
 }
 
 function renderProducts() {
   if (!productGrid || !productCount || !shopTitle) return;
 
-  const visibleProducts = filteredProducts();
   const activeCategoryData = categories.find((category) => category.category === activeStoreCategory);
   const activeSubcategoryData = (subcategoryGroups[activeStoreCategory] || []).find((subcategory) => subcategory.key === activeStoreSubcategory);
   shopTitle.textContent = activeSubcategoryData ? activeSubcategoryData.title : activeCategoryData ? activeCategoryData.title : "Forge3D stock";
-  productCount.textContent = `${visibleProducts.length} item${visibleProducts.length === 1 ? "" : "s"} shown`;
   renderSubcategories();
+
+  if ((subcategoryGroups[activeStoreCategory] || []).length && !activeStoreSubcategory) {
+    productCount.textContent = "Choose a section first";
+    productGrid.innerHTML = `<div class="empty-state">Select a ${activeCategoryData.title.toLowerCase()} section above to view available products.</div>`;
+    return;
+  }
+
+  const visibleProducts = filteredProducts().sort((a, b) => (a.popularity || 99) - (b.popularity || 99));
+  productCount.textContent = `${visibleProducts.length} item${visibleProducts.length === 1 ? "" : "s"} shown`;
 
   if (!visibleProducts.length) {
     productGrid.innerHTML = `<div class="empty-state">No products match your filters.</div>`;
@@ -607,6 +723,7 @@ function enterStore(target = "shop") {
   window.setTimeout(() => {
     activeStoreCategory = category.category;
     activeStoreSubcategory = null;
+    activeSubcategoryIndex = 0;
     document.body.classList.remove("landing-mode");
     document.body.classList.add("store-mode");
     document.body.classList.remove("transitioning");
@@ -627,6 +744,7 @@ function enterLanding() {
   document.body.classList.add("landing-mode");
   activeStoreCategory = null;
   activeStoreSubcategory = null;
+  activeSubcategoryIndex = 0;
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -635,6 +753,7 @@ function openStoreDirect(target = "shop") {
   document.body.classList.add("store-mode");
   activeStoreCategory = null;
   activeStoreSubcategory = null;
+  activeSubcategoryIndex = 0;
   renderProducts();
   document.querySelector(`#${target}`)?.scrollIntoView({ behavior: "auto", block: "start" });
 }
@@ -756,14 +875,18 @@ productGrid?.addEventListener("click", (event) => {
   if (addButton) addToCart(addButton.dataset.add);
 });
 
-printerSubcategoryGrid?.addEventListener("click", (event) => {
-  const card = event.target.closest("[data-subcategory]");
-  if (!card) return;
+selectSubcategory?.addEventListener("click", () => {
+  const subcategories = subcategoryGroups[activeStoreCategory] || [];
+  const selected = subcategories[activeSubcategoryIndex];
+  if (!selected) return;
 
-  activeStoreSubcategory = card.dataset.subcategory;
+  activeStoreSubcategory = selected.key;
   renderProducts();
   document.querySelector("#shop")?.scrollIntoView({ behavior: "smooth", block: "start" });
 });
+
+subcategoryPrev?.addEventListener("click", () => moveSubcategory(-1));
+subcategoryNext?.addEventListener("click", () => moveSubcategory(1));
 
 cartItems?.addEventListener("click", (event) => {
   const increaseButton = event.target.closest("[data-increase]");

@@ -100,12 +100,19 @@
       <section id="printerSubcategories" class="section-card printer-subcategories" hidden>
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Choose your printer type</p>
-            <h2>3D Printer sections</h2>
+            <p class="eyebrow">Choose your section</p>
+            <h2 id="subcategoryDeckTitle">Category sections</h2>
           </div>
           <p id="printerSubcategoryLabel" class="muted">All printer sections</p>
         </div>
-        <div id="printerSubcategoryGrid" class="subcategory-grid" aria-label="3D printer subsections"></div>
+        <div class="subcategory-deck" aria-live="polite">
+          <button id="subcategoryPrev" class="category-arrow category-arrow-left" type="button" aria-label="Previous section">&lsaquo;</button>
+          <div id="printerSubcategoryGrid" class="subcategory-stage" aria-label="Category subsections"></div>
+          <button id="subcategoryNext" class="category-arrow category-arrow-right" type="button" aria-label="Next section">&rsaquo;</button>
+        </div>
+        <div class="hero-actions subcategory-actions">
+          <button id="selectSubcategory" class="button primary" type="button">View available products</button>
+        </div>
       </section>
 
       <section id="shop" class="section-card">
